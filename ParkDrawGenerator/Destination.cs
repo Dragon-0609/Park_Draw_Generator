@@ -4,6 +4,7 @@
 	{
 		Unset,
 		Arrow,
-		Park
+		Park,
+		Button
 	}
 }

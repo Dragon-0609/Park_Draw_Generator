@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Point = ParkDrawGenerator.Point;
 
@@ -11,12 +12,14 @@ namespace ParkDrawGenerator
 	{
 		private int _x = 2, _y = 2;
 		private const int TileSize = 40;
-		public Brush Brush = Brush.Unset;
-		public Destination Destination = Destination.Unset;
-		public Rotating Rotating = Rotating.Unset;
-		private Dictionary<Point, Brush> _brushes = new Dictionary<Point, Brush>();
-		private Dictionary<Point, Destination> _destinations = new Dictionary<Point, Destination>();
-		private Dictionary<Point, Rotating> _rotatings = new Dictionary<Point, Rotating>();
+		private Brush _brush = Brush.Unset;
+		private Destination _destination = Destination.Unset;
+		private Rotating _rotating = Rotating.Unset;
+		private Barrier _barrier = Barrier.Unset;
+		private Dictionary<Point, Brush> _brushes = new();
+		private Dictionary<Point, Destination> _destinations = new();
+		private Dictionary<Point, Rotating> _rotatings = new();
+		private Dictionary<Point, Barrier> _barriers = new();
 
 		public Form1()
 		{
@@ -42,6 +45,9 @@ namespace ParkDrawGenerator
 			_brushes.Clear();
 			_destinations.Clear();
 			_rotatings.Clear();
+			_barriers.Clear();
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 			for (int y = 0; y < _y + 2; y++)
 			{
 				for (int x = 0; x < _x + 2; x++)
@@ -59,6 +65,7 @@ namespace ParkDrawGenerator
 						panel.BackColor = Color.Black;
 						panel.BackgroundImage = Destination.Unset.GetImage();
 						_destinations.Add(location, Destination.Unset);
+						_barriers.Add(location, Barrier.Unset);
 					}
 					else
 					{
@@ -81,18 +88,15 @@ namespace ParkDrawGenerator
 			Panel panel = (Panel)sender;
 			Point location = GetPoint(panel);
 
-			if (Destination != Destination.Unset)
-			{
-				panel.BackColor = Brush == Brush.Unset ? Color.Black : Brush.GetColor();
-			}
-			else
-			{
-				panel.BackColor = SystemColors.Control;
-			}
+			panel.BackColor = _brush == Brush.Unset ? Color.Black : _brush.GetColor();
 
-			_brushes[location] = Brush;
-			_destinations[location] = Destination;
-			panel.BackgroundImage = Destination.GetImage();
+			_brushes[location] = _brush;
+			_destinations[location] = _destination;
+			_barriers[location] = _barrier;
+			if (panel.BackgroundImage != null)
+				panel.BackgroundImage.Dispose();
+			panel.BackgroundImage = new[] { _destination.GetImage(), _barrier.GetImage() }.CombineBitmap();
+
 		}
 
 		private void PaintRoad(object sender, EventArgs e)
@@ -100,13 +104,13 @@ namespace ParkDrawGenerator
 			Panel panel = (Panel)sender;
 			Point location = GetPoint(panel);
 
-			panel.BackColor = Brush.GetColor();
-			_brushes[location] = Brush;
+			panel.BackColor = _brush.GetColor();
+			_brushes[location] = _brush;
 
-			Image image = Rotating.GetImage();
+			Image image = _rotating.GetImage();
 			panel.BackgroundImage = image;
 
-			_rotatings[location] = Rotating;
+			_rotatings[location] = _rotating;
 		}
 
 		private bool IsParkZone(int value, int max)
@@ -133,6 +137,25 @@ namespace ParkDrawGenerator
 			string output = $"{Convert.ToInt32(MovesInput.Value)}\n#\n";
 			List<Point> parks = new List<Point>();
 			List<Point> roads = new List<Point>();
+			GetParksAndRoads(parks, roads);
+
+			output += ExportParks(parks);
+			output += ExportRoads(roads);
+			output += ExportRotatings(roads, parks);
+			output += ExportBarriers(parks);
+
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.DefaultExt = "txt";
+			saveFileDialog.Filter = "Level Info|*.txt";
+			saveFileDialog.RestoreDirectory = true;
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				File.WriteAllText(saveFileDialog.FileName, output);
+			}
+		}
+
+		private void GetParksAndRoads(List<Point> parks, List<Point> roads)
+		{
 			foreach (Control control in GridPanel.Controls)
 			{
 				bool isPark = control.AccessibleName == "Park";
@@ -147,21 +170,42 @@ namespace ParkDrawGenerator
 					roads.Add(location);
 				}
 			}
+		}
 
+		private string ExportParks(List<Point> parks)
+		{
+			string output = "";
 			foreach (Point point in parks)
 			{
-				output += $"{InvertPoint(point).ToString()}:{(int)_brushes[point]}, ";
+				string btn = "";
+				if (_destinations[point] == Destination.Button)
+				{
+					btn = ":1";
+				}
+				output += $"{InvertPoint(point).ToString()}:{(int)_brushes[point]}{btn}, ";
 			}
 
-			output = output.Substring(0, output.Length - 2);
+			output = Cut(output);
 			output += "\n|\n";
+			return output;
+		}
 
+		private string ExportRoads(List<Point> roads)
+		{
+			string output = "";
 			foreach (Point point in roads)
 			{
-				output += $"{InvertPoint(point).ToString()}:{(int)_brushes[point]}, ";
+				string s = $"{InvertPoint(point).ToString()}:{(int)_brushes[point]}, ";
+				output += s;
 			}
 
-			output = output.Substring(0, output.Length - 2);
+			output = Cut(output);
+			return output;
+		}
+
+		private string ExportRotatings(List<Point> roads, List<Point> parks)
+		{
+			string output = "";
 			bool added = false;
 			foreach (Point point in roads)
 			{
@@ -173,68 +217,96 @@ namespace ParkDrawGenerator
 						added = true;
 					}
 
-					int to_right = _rotatings[point].IsToRight() ? 1 : 0;
-					int to_s_or_n = _rotatings[point].IsToSorToN() ? 1 : 0;
+					int toRight = _rotatings[point].IsToRight() ? 1 : 0;
+					int toSOrN = _rotatings[point].IsToSorToN() ? 1 : 0;
 					int rotation = _rotatings[point].ToInt();
-					output += $"{InvertPoint(point).ToString()}:{to_right}:{rotation}:{to_s_or_n}, ";
+					output += $"{InvertPoint(point).ToString()}:{toRight}:{rotation}:{toSOrN}, ";
 				}
 			}
 
-			output = output.Substring(0, output.Length - 2);
-
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-			saveFileDialog.DefaultExt = "txt";
-			saveFileDialog.Filter = "Level Info|*.txt";
-			saveFileDialog.RestoreDirectory = true;
-			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			if (added)
 			{
-				File.WriteAllText(saveFileDialog.FileName, output);
+				output = Cut(output);
 			}
+			else{
+				output += "\n|\n";
+			}
+			return output;
+		}
+
+		private string ExportBarriers(List<Point> parks)
+		{
+			string output = "";
+			bool has = false;
+			if (_barriers.Any(pair => pair.Value == Barrier.Barrier))
+			{
+				output += "\n|\n";
+				has = true;
+			}
+			foreach (Point point in parks)
+			{
+				if (_barriers[point] == Barrier.Barrier)
+				{
+					output += $"{InvertPoint(point).ToString()}, ";
+				}
+			}
+
+			if (has)
+			{
+				output = Cut(output);
+			}
+			return output;
+		}
+
+		private static string Cut(string output)
+		{
+			output = output.Substring(0, output.Length - 2);
+			return output;
 		}
 
 		private void NoneButton_Click(object sender, EventArgs e)
 		{
-			Brush = Brush.Unset;
+			_brush = Brush.Unset;
 		}
 
 		private void RedButton_Click(object sender, EventArgs e)
 		{
-			Brush = Brush.Red;
+			_brush = Brush.Red;
 		}
 
 		private void GreenButton_Click(object sender, EventArgs e)
 		{
-			Brush = Brush.Green;
+			_brush = Brush.Green;
 		}
 
 		private void BlueButton_Click(object sender, EventArgs e)
 		{
-			Brush = Brush.Blue;
+			_brush = Brush.Blue;
 		}
 
 		private void YellowButton_Click(object sender, EventArgs e)
 		{
-			Brush = Brush.Yellow;
+			_brush = Brush.Yellow;
 		}
 
 		private void NoneParkButton_Click(object sender, EventArgs e)
 		{
-			Destination = Destination.Unset;
+			_destination = Destination.Unset;
 		}
 
 		private void ArrowButton_Click(object sender, EventArgs e)
 		{
-			Destination = Destination.Arrow;
+			_destination = Destination.Arrow;
 		}
 
 		private void ParkButton_Click(object sender, EventArgs e)
 		{
-			Destination = Destination.Park;
+			_destination = Destination.Park;
 		}
 
 		private void NoneRotatingButton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.Unset;
+			_rotating = Rotating.Unset;
 		}
 
 		private Point GetPointS(Control control)
@@ -254,42 +326,57 @@ namespace ParkDrawGenerator
 
 		private void TurnButton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningLeftSW;
+			_rotating = Rotating.TurningLeftSW;
 		}
 
 		private void TurnRightButton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningRightSE;
+			_rotating = Rotating.TurningRightSE;
 		}
 
 		private void RotateLeftESbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningLeftES;
+			_rotating = Rotating.TurningLeftES;
 		}
 
 		private void RotateRightWSbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningRightWS;
+			_rotating = Rotating.TurningRightWS;
 		}
 
 		private void RotateLeftNEbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningLeftNE;
+			_rotating = Rotating.TurningLeftNE;
 		}
 
 		private void RotateRightNWbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningRightNW;
+			_rotating = Rotating.TurningRightNW;
 		}
 
 		private void RotateLeftWNbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningLeftWN;
+			_rotating = Rotating.TurningLeftWN;
 		}
 
 		private void RotateRightENbutton_Click(object sender, EventArgs e)
 		{
-			Rotating = Rotating.TurningRightEN;
+			_rotating = Rotating.TurningRightEN;
+		}
+
+		private void ButtonButton_Click(object sender, EventArgs e)
+		{
+			_destination = Destination.Button;
+		}
+
+		private void NoneBarrierButton_Click(object sender, EventArgs e)
+		{
+			_barrier = Barrier.Unset;
+		}
+
+		private void BarrierButton_Click(object sender, EventArgs e)
+		{
+			_barrier = Barrier.Barrier;
 		}
 	}
 }

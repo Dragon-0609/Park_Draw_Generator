@@ -30,21 +30,25 @@
 		private void InitializeComponent()
 		{
 			this.GridPanel = new System.Windows.Forms.Panel();
-			this.panel2 = new System.Windows.Forms.Panel();
+			this.ToolsPanel = new System.Windows.Forms.Panel();
 			this.RotateRightENbutton = new System.Windows.Forms.Button();
-			this.RotateRightNWbutton = new System.Windows.Forms.Button();
-			this.RotateRightWSbutton = new System.Windows.Forms.Button();
+			this.NoneRotatingButton = new System.Windows.Forms.Button();
 			this.RotateLeftWNbutton = new System.Windows.Forms.Button();
+			this.RotateRightNWbutton = new System.Windows.Forms.Button();
+			this.TurnLeftButton = new System.Windows.Forms.Button();
+			this.RotateRightWSbutton = new System.Windows.Forms.Button();
 			this.RotateLeftNEbutton = new System.Windows.Forms.Button();
+			this.TurnRightButton = new System.Windows.Forms.Button();
 			this.RotateLeftESbutton = new System.Windows.Forms.Button();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.BarrierButton = new System.Windows.Forms.Button();
+			this.NoneBarrierButton = new System.Windows.Forms.Button();
+			this.ButtonButton = new System.Windows.Forms.Button();
 			this.MovesInput = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
 			this.ExportButton = new System.Windows.Forms.Button();
-			this.NoneRotatingButton = new System.Windows.Forms.Button();
 			this.NoneParkButton = new System.Windows.Forms.Button();
-			this.TurnRightButton = new System.Windows.Forms.Button();
 			this.NoneButton = new System.Windows.Forms.Button();
-			this.TurnLeftButton = new System.Windows.Forms.Button();
 			this.ParkButton = new System.Windows.Forms.Button();
 			this.ArrowButton = new System.Windows.Forms.Button();
 			this.YellowButton = new System.Windows.Forms.Button();
@@ -54,6 +58,7 @@
 			this.YInput = new System.Windows.Forms.NumericUpDown();
 			this.XInput = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
+			this.ToolsPanel.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.MovesInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.YInput)).BeginInit();
@@ -62,29 +67,169 @@
 			// 
 			// GridPanel
 			// 
-			this.GridPanel.Dock = System.Windows.Forms.DockStyle.Left;
+			this.GridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.GridPanel.Location = new System.Drawing.Point(0, 0);
 			this.GridPanel.Margin = new System.Windows.Forms.Padding(4);
 			this.GridPanel.Name = "GridPanel";
-			this.GridPanel.Size = new System.Drawing.Size(509, 683);
+			this.GridPanel.Size = new System.Drawing.Size(681, 540);
 			this.GridPanel.TabIndex = 0;
+			// 
+			// ToolsPanel
+			// 
+			this.ToolsPanel.Controls.Add(this.RotateRightENbutton);
+			this.ToolsPanel.Controls.Add(this.NoneRotatingButton);
+			this.ToolsPanel.Controls.Add(this.RotateLeftWNbutton);
+			this.ToolsPanel.Controls.Add(this.RotateRightNWbutton);
+			this.ToolsPanel.Controls.Add(this.TurnLeftButton);
+			this.ToolsPanel.Controls.Add(this.RotateRightWSbutton);
+			this.ToolsPanel.Controls.Add(this.RotateLeftNEbutton);
+			this.ToolsPanel.Controls.Add(this.TurnRightButton);
+			this.ToolsPanel.Controls.Add(this.RotateLeftESbutton);
+			this.ToolsPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.ToolsPanel.Location = new System.Drawing.Point(0, 382);
+			this.ToolsPanel.Name = "ToolsPanel";
+			this.ToolsPanel.Size = new System.Drawing.Size(470, 158);
+			this.ToolsPanel.TabIndex = 0;
+			// 
+			// RotateRightENbutton
+			// 
+			this.RotateRightENbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateRightENbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_en;
+			this.RotateRightENbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateRightENbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateRightENbutton.ForeColor = System.Drawing.Color.Black;
+			this.RotateRightENbutton.Location = new System.Drawing.Point(218, 4);
+			this.RotateRightENbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateRightENbutton.Name = "RotateRightENbutton";
+			this.RotateRightENbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateRightENbutton.TabIndex = 22;
+			this.RotateRightENbutton.UseVisualStyleBackColor = false;
+			this.RotateRightENbutton.Click += new System.EventHandler(this.RotateRightENbutton_Click);
+			// 
+			// NoneRotatingButton
+			// 
+			this.NoneRotatingButton.BackColor = System.Drawing.Color.Black;
+			this.NoneRotatingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.NoneRotatingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.NoneRotatingButton.Location = new System.Drawing.Point(6, 4);
+			this.NoneRotatingButton.Margin = new System.Windows.Forms.Padding(4);
+			this.NoneRotatingButton.Name = "NoneRotatingButton";
+			this.NoneRotatingButton.Size = new System.Drawing.Size(45, 44);
+			this.NoneRotatingButton.TabIndex = 13;
+			this.NoneRotatingButton.UseVisualStyleBackColor = false;
+			this.NoneRotatingButton.Click += new System.EventHandler(this.NoneRotatingButton_Click);
+			// 
+			// RotateLeftWNbutton
+			// 
+			this.RotateLeftWNbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateLeftWNbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_wn;
+			this.RotateLeftWNbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateLeftWNbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateLeftWNbutton.Location = new System.Drawing.Point(218, 55);
+			this.RotateLeftWNbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateLeftWNbutton.Name = "RotateLeftWNbutton";
+			this.RotateLeftWNbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateLeftWNbutton.TabIndex = 19;
+			this.RotateLeftWNbutton.UseVisualStyleBackColor = false;
+			this.RotateLeftWNbutton.Click += new System.EventHandler(this.RotateLeftWNbutton_Click);
+			// 
+			// RotateRightNWbutton
+			// 
+			this.RotateRightNWbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateRightNWbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_nw;
+			this.RotateRightNWbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateRightNWbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateRightNWbutton.ForeColor = System.Drawing.Color.Black;
+			this.RotateRightNWbutton.Location = new System.Drawing.Point(165, 4);
+			this.RotateRightNWbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateRightNWbutton.Name = "RotateRightNWbutton";
+			this.RotateRightNWbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateRightNWbutton.TabIndex = 21;
+			this.RotateRightNWbutton.UseVisualStyleBackColor = false;
+			this.RotateRightNWbutton.Click += new System.EventHandler(this.RotateRightNWbutton_Click);
+			// 
+			// TurnLeftButton
+			// 
+			this.TurnLeftButton.BackColor = System.Drawing.Color.Black;
+			this.TurnLeftButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow;
+			this.TurnLeftButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.TurnLeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.TurnLeftButton.Location = new System.Drawing.Point(59, 55);
+			this.TurnLeftButton.Margin = new System.Windows.Forms.Padding(4);
+			this.TurnLeftButton.Name = "TurnLeftButton";
+			this.TurnLeftButton.Size = new System.Drawing.Size(45, 44);
+			this.TurnLeftButton.TabIndex = 9;
+			this.TurnLeftButton.UseVisualStyleBackColor = false;
+			this.TurnLeftButton.Click += new System.EventHandler(this.TurnButton_Click);
+			// 
+			// RotateRightWSbutton
+			// 
+			this.RotateRightWSbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateRightWSbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_se;
+			this.RotateRightWSbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateRightWSbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateRightWSbutton.ForeColor = System.Drawing.Color.Black;
+			this.RotateRightWSbutton.Location = new System.Drawing.Point(112, 5);
+			this.RotateRightWSbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateRightWSbutton.Name = "RotateRightWSbutton";
+			this.RotateRightWSbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateRightWSbutton.TabIndex = 20;
+			this.RotateRightWSbutton.UseVisualStyleBackColor = false;
+			this.RotateRightWSbutton.Click += new System.EventHandler(this.RotateRightWSbutton_Click);
+			// 
+			// RotateLeftNEbutton
+			// 
+			this.RotateLeftNEbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateLeftNEbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_ne;
+			this.RotateLeftNEbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateLeftNEbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateLeftNEbutton.Location = new System.Drawing.Point(165, 55);
+			this.RotateLeftNEbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateLeftNEbutton.Name = "RotateLeftNEbutton";
+			this.RotateLeftNEbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateLeftNEbutton.TabIndex = 18;
+			this.RotateLeftNEbutton.UseVisualStyleBackColor = false;
+			this.RotateLeftNEbutton.Click += new System.EventHandler(this.RotateLeftNEbutton_Click);
+			// 
+			// TurnRightButton
+			// 
+			this.TurnRightButton.BackColor = System.Drawing.Color.Black;
+			this.TurnRightButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right;
+			this.TurnRightButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.TurnRightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.TurnRightButton.ForeColor = System.Drawing.Color.Black;
+			this.TurnRightButton.Location = new System.Drawing.Point(59, 4);
+			this.TurnRightButton.Margin = new System.Windows.Forms.Padding(4);
+			this.TurnRightButton.Name = "TurnRightButton";
+			this.TurnRightButton.Size = new System.Drawing.Size(45, 44);
+			this.TurnRightButton.TabIndex = 11;
+			this.TurnRightButton.UseVisualStyleBackColor = false;
+			this.TurnRightButton.Click += new System.EventHandler(this.TurnRightButton_Click);
+			// 
+			// RotateLeftESbutton
+			// 
+			this.RotateLeftESbutton.BackColor = System.Drawing.Color.Black;
+			this.RotateLeftESbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_es;
+			this.RotateLeftESbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RotateLeftESbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RotateLeftESbutton.Location = new System.Drawing.Point(112, 55);
+			this.RotateLeftESbutton.Margin = new System.Windows.Forms.Padding(4);
+			this.RotateLeftESbutton.Name = "RotateLeftESbutton";
+			this.RotateLeftESbutton.Size = new System.Drawing.Size(45, 44);
+			this.RotateLeftESbutton.TabIndex = 17;
+			this.RotateLeftESbutton.UseVisualStyleBackColor = false;
+			this.RotateLeftESbutton.Click += new System.EventHandler(this.RotateLeftESbutton_Click);
 			// 
 			// panel2
 			// 
-			this.panel2.Controls.Add(this.RotateRightENbutton);
-			this.panel2.Controls.Add(this.RotateRightNWbutton);
-			this.panel2.Controls.Add(this.RotateRightWSbutton);
-			this.panel2.Controls.Add(this.RotateLeftWNbutton);
-			this.panel2.Controls.Add(this.RotateLeftNEbutton);
-			this.panel2.Controls.Add(this.RotateLeftESbutton);
+			this.panel2.Controls.Add(this.BarrierButton);
+			this.panel2.Controls.Add(this.NoneBarrierButton);
+			this.panel2.Controls.Add(this.ButtonButton);
 			this.panel2.Controls.Add(this.MovesInput);
 			this.panel2.Controls.Add(this.label2);
 			this.panel2.Controls.Add(this.ExportButton);
-			this.panel2.Controls.Add(this.NoneRotatingButton);
 			this.panel2.Controls.Add(this.NoneParkButton);
-			this.panel2.Controls.Add(this.TurnRightButton);
 			this.panel2.Controls.Add(this.NoneButton);
-			this.panel2.Controls.Add(this.TurnLeftButton);
 			this.panel2.Controls.Add(this.ParkButton);
 			this.panel2.Controls.Add(this.ArrowButton);
 			this.panel2.Controls.Add(this.YellowButton);
@@ -95,98 +240,52 @@
 			this.panel2.Controls.Add(this.XInput);
 			this.panel2.Controls.Add(this.label1);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panel2.Location = new System.Drawing.Point(508, 0);
+			this.panel2.Location = new System.Drawing.Point(470, 0);
 			this.panel2.Margin = new System.Windows.Forms.Padding(4);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(211, 683);
+			this.panel2.Size = new System.Drawing.Size(211, 540);
 			this.panel2.TabIndex = 1;
 			// 
-			// RotateRightESbutton
+			// BarrierButton
 			// 
-			this.RotateRightENbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateRightENbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_en;
-			this.RotateRightENbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateRightENbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateRightENbutton.ForeColor = System.Drawing.Color.Black;
-			this.RotateRightENbutton.Location = new System.Drawing.Point(121, 520);
-			this.RotateRightENbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateRightENbutton.Name = "RotateRightENbutton";
-			this.RotateRightENbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateRightENbutton.TabIndex = 22;
-			this.RotateRightENbutton.UseVisualStyleBackColor = false;
-			this.RotateRightENbutton.Click += new System.EventHandler(this.RotateRightENbutton_Click);
+			this.BarrierButton.BackColor = System.Drawing.Color.Black;
+			this.BarrierButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Barrier;
+			this.BarrierButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.BarrierButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.BarrierButton.Location = new System.Drawing.Point(68, 413);
+			this.BarrierButton.Margin = new System.Windows.Forms.Padding(4);
+			this.BarrierButton.Name = "BarrierButton";
+			this.BarrierButton.Size = new System.Drawing.Size(45, 44);
+			this.BarrierButton.TabIndex = 19;
+			this.BarrierButton.UseVisualStyleBackColor = false;
+			this.BarrierButton.Click += new System.EventHandler(this.BarrierButton_Click);
 			// 
-			// RotateRightNWbutton
+			// NoneBarrierButton
 			// 
-			this.RotateRightNWbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateRightNWbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_nw;
-			this.RotateRightNWbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateRightNWbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateRightNWbutton.ForeColor = System.Drawing.Color.Black;
-			this.RotateRightNWbutton.Location = new System.Drawing.Point(121, 468);
-			this.RotateRightNWbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateRightNWbutton.Name = "RotateRightNWbutton";
-			this.RotateRightNWbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateRightNWbutton.TabIndex = 21;
-			this.RotateRightNWbutton.UseVisualStyleBackColor = false;
-			this.RotateRightNWbutton.Click += new System.EventHandler(this.RotateRightNWbutton_Click);
+			this.NoneBarrierButton.BackColor = System.Drawing.Color.Black;
+			this.NoneBarrierButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.NoneBarrierButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.NoneBarrierButton.Location = new System.Drawing.Point(15, 413);
+			this.NoneBarrierButton.Margin = new System.Windows.Forms.Padding(4);
+			this.NoneBarrierButton.Name = "NoneBarrierButton";
+			this.NoneBarrierButton.Size = new System.Drawing.Size(45, 44);
+			this.NoneBarrierButton.TabIndex = 18;
+			this.NoneBarrierButton.UseVisualStyleBackColor = false;
+			this.NoneBarrierButton.Click += new System.EventHandler(this.NoneBarrierButton_Click);
 			// 
-			// RotateRightWSbutton
+			// ButtonButton
 			// 
-			this.RotateRightWSbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateRightWSbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right_se;
-			this.RotateRightWSbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateRightWSbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateRightWSbutton.ForeColor = System.Drawing.Color.Black;
-			this.RotateRightWSbutton.Location = new System.Drawing.Point(121, 416);
-			this.RotateRightWSbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateRightWSbutton.Name = "RotateRightWSbutton";
-			this.RotateRightWSbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateRightWSbutton.TabIndex = 20;
-			this.RotateRightWSbutton.UseVisualStyleBackColor = false;
-			this.RotateRightWSbutton.Click += new System.EventHandler(this.RotateRightWSbutton_Click);
-			// 
-			// RotateLeftWNbutton
-			// 
-			this.RotateLeftWNbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateLeftWNbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_wn;
-			this.RotateLeftWNbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateLeftWNbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateLeftWNbutton.Location = new System.Drawing.Point(68, 520);
-			this.RotateLeftWNbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateLeftWNbutton.Name = "RotateLeftWNbutton";
-			this.RotateLeftWNbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateLeftWNbutton.TabIndex = 19;
-			this.RotateLeftWNbutton.UseVisualStyleBackColor = false;
-			this.RotateLeftWNbutton.Click += new System.EventHandler(this.RotateLeftWNbutton_Click);
-			// 
-			// RotateLeftNEbutton
-			// 
-			this.RotateLeftNEbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateLeftNEbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_ne;
-			this.RotateLeftNEbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateLeftNEbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateLeftNEbutton.Location = new System.Drawing.Point(68, 468);
-			this.RotateLeftNEbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateLeftNEbutton.Name = "RotateLeftNEbutton";
-			this.RotateLeftNEbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateLeftNEbutton.TabIndex = 18;
-			this.RotateLeftNEbutton.UseVisualStyleBackColor = false;
-			this.RotateLeftNEbutton.Click += new System.EventHandler(this.RotateLeftNEbutton_Click);
-			// 
-			// RotateLeftESbutton
-			// 
-			this.RotateLeftESbutton.BackColor = System.Drawing.Color.Black;
-			this.RotateLeftESbutton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_left_es;
-			this.RotateLeftESbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RotateLeftESbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RotateLeftESbutton.Location = new System.Drawing.Point(68, 416);
-			this.RotateLeftESbutton.Margin = new System.Windows.Forms.Padding(4);
-			this.RotateLeftESbutton.Name = "RotateLeftESbutton";
-			this.RotateLeftESbutton.Size = new System.Drawing.Size(45, 44);
-			this.RotateLeftESbutton.TabIndex = 17;
-			this.RotateLeftESbutton.UseVisualStyleBackColor = false;
-			this.RotateLeftESbutton.Click += new System.EventHandler(this.RotateLeftESbutton_Click);
+			this.ButtonButton.BackColor = System.Drawing.Color.Black;
+			this.ButtonButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.button_red;
+			this.ButtonButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.ButtonButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonButton.Location = new System.Drawing.Point(15, 351);
+			this.ButtonButton.Margin = new System.Windows.Forms.Padding(4);
+			this.ButtonButton.Name = "ButtonButton";
+			this.ButtonButton.Size = new System.Drawing.Size(45, 44);
+			this.ButtonButton.TabIndex = 17;
+			this.ButtonButton.UseVisualStyleBackColor = false;
+			this.ButtonButton.Click += new System.EventHandler(this.ButtonButton_Click);
 			// 
 			// MovesInput
 			// 
@@ -209,7 +308,7 @@
 			// ExportButton
 			// 
 			this.ExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-			this.ExportButton.Location = new System.Drawing.Point(44, 629);
+			this.ExportButton.Location = new System.Drawing.Point(44, 486);
 			this.ExportButton.Margin = new System.Windows.Forms.Padding(4);
 			this.ExportButton.Name = "ExportButton";
 			this.ExportButton.Size = new System.Drawing.Size(137, 41);
@@ -217,20 +316,6 @@
 			this.ExportButton.Text = "Export";
 			this.ExportButton.UseVisualStyleBackColor = true;
 			this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
-			// 
-			// NoneRotatingButton
-			// 
-			this.NoneRotatingButton.BackColor = System.Drawing.Color.Black;
-			this.NoneRotatingButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.kwadrat2;
-			this.NoneRotatingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.NoneRotatingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.NoneRotatingButton.Location = new System.Drawing.Point(15, 364);
-			this.NoneRotatingButton.Margin = new System.Windows.Forms.Padding(4);
-			this.NoneRotatingButton.Name = "NoneRotatingButton";
-			this.NoneRotatingButton.Size = new System.Drawing.Size(45, 44);
-			this.NoneRotatingButton.TabIndex = 13;
-			this.NoneRotatingButton.UseVisualStyleBackColor = false;
-			this.NoneRotatingButton.Click += new System.EventHandler(this.NoneRotatingButton_Click);
 			// 
 			// NoneParkButton
 			// 
@@ -245,21 +330,6 @@
 			this.NoneParkButton.UseVisualStyleBackColor = false;
 			this.NoneParkButton.Click += new System.EventHandler(this.NoneParkButton_Click);
 			// 
-			// TurnRightButton
-			// 
-			this.TurnRightButton.BackColor = System.Drawing.Color.Black;
-			this.TurnRightButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow_right;
-			this.TurnRightButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.TurnRightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.TurnRightButton.ForeColor = System.Drawing.Color.Black;
-			this.TurnRightButton.Location = new System.Drawing.Point(122, 364);
-			this.TurnRightButton.Margin = new System.Windows.Forms.Padding(4);
-			this.TurnRightButton.Name = "TurnRightButton";
-			this.TurnRightButton.Size = new System.Drawing.Size(45, 44);
-			this.TurnRightButton.TabIndex = 11;
-			this.TurnRightButton.UseVisualStyleBackColor = false;
-			this.TurnRightButton.Click += new System.EventHandler(this.TurnRightButton_Click);
-			// 
 			// NoneButton
 			// 
 			this.NoneButton.BackColor = System.Drawing.Color.Black;
@@ -272,20 +342,6 @@
 			this.NoneButton.TabIndex = 10;
 			this.NoneButton.UseVisualStyleBackColor = false;
 			this.NoneButton.Click += new System.EventHandler(this.NoneButton_Click);
-			// 
-			// TurnLeftButton
-			// 
-			this.TurnLeftButton.BackColor = System.Drawing.Color.Black;
-			this.TurnLeftButton.BackgroundImage = global::ParkDrawGenerator.Properties.Resources.Turn_arrow;
-			this.TurnLeftButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.TurnLeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.TurnLeftButton.Location = new System.Drawing.Point(69, 364);
-			this.TurnLeftButton.Margin = new System.Windows.Forms.Padding(4);
-			this.TurnLeftButton.Name = "TurnLeftButton";
-			this.TurnLeftButton.Size = new System.Drawing.Size(45, 44);
-			this.TurnLeftButton.TabIndex = 9;
-			this.TurnLeftButton.UseVisualStyleBackColor = false;
-			this.TurnLeftButton.Click += new System.EventHandler(this.TurnButton_Click);
 			// 
 			// ParkButton
 			// 
@@ -398,19 +454,29 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(719, 683);
+			this.ClientSize = new System.Drawing.Size(681, 540);
+			this.Controls.Add(this.ToolsPanel);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.GridPanel);
 			this.Font = new System.Drawing.Font("JetBrains Mono", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "Form1";
 			this.Text = "Form1";
+			this.ToolsPanel.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.MovesInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.YInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.XInput)).EndInit();
 			this.ResumeLayout(false);
 		}
+
+		private System.Windows.Forms.Button BarrierButton;
+
+		private System.Windows.Forms.Button NoneBarrierButton;
+
+		private System.Windows.Forms.Button ButtonButton;
+
+		private System.Windows.Forms.Panel ToolsPanel;
 
 		private System.Windows.Forms.Button RotateRightENbutton;
 

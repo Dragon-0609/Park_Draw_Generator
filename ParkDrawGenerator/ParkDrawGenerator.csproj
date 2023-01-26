@@ -47,6 +47,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Barrier.cs" />
         <Compile Include="Brush.cs" />
         <Compile Include="Destination.cs" />
         <Compile Include="Form1.cs">
@@ -86,13 +87,16 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="Images\Arrow (2).png" />
-      <EmbeddedResource Include="Images\kwadrat2.png" />
-      <EmbeddedResource Include="Images\Parking (2).png" />
-      <EmbeddedResource Include="Images\Turn_arrow.png" />
+      <None Include="Images\Arrow (2).png" />
+      <None Include="Images\kwadrat2.png" />
+      <None Include="Images\Parking (2).png" />
+      <None Include="Images\Turn_arrow.png" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Resources\Arrow__2_.png" />
+      <Content Include="Resources\Barrier.png" />
+      <Content Include="Resources\button_blue.png" />
+      <Content Include="Resources\button_red.png" />
       <Content Include="Resources\kwadrat2.png" />
       <Content Include="Resources\Parking__2_.png" />
       <Content Include="Resources\Turn_arrow.png" />
